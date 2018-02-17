@@ -26,7 +26,7 @@ async def on_ready():
     print('Support Discord Server: https://discord.gg/FNNNgqb')
     print('Github Link: https://github.com/Habchy/BasicBot')
     print('--------')
-    return await client.change_presence(game=discord.Game(name='PLAYING STATUS HERE'))
+    return await client.change_presence(game=discord.Game(name='Nutrition '))
 
 # This is a basic example of a call and response command. You tell it do "this" and it does it.
 @client.event
@@ -46,7 +46,6 @@ async def on_message(message):
     ### if codes reaches this point we are making a call to the nutrionix API
     output = bot_response(message)
     if type(output) == str:
-        await client.send_message(message.channel, "Sorry we could not find your requested food item.")
         return
     visuals = output["visual"]
     texts = output["text"]
