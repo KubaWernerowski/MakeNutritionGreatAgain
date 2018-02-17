@@ -48,52 +48,31 @@ class NutritionGraphics:
         """
         Creates a bar graph comparing two distinct foods' nutrients.
         """
-        ORDERED_NUTRIENTS = [x for x in self.food.nutrients]
+        food_one_nutrient = self.food.nutrients[comparison_nutrient]
+        other_food_nutrient = other_food.nutrients[comparison_nutrient]
 
-        food1data = [[self.food.name, nutrient,
-                      self.food.nutrients[nutrient]] for nutrient in ORDERED_NUTRIENTS]
-        food2data = [[other_food.food.name, nutrient,
-                      other_food.food.nutrients[nutrient]] for nutrient in ORDERED_NUTRIENTS]
+        food_one = [0, food_one_nutrient / 3, (2 * food_one_nutrient) / 3, food_one_nutrient]
+        food_two = [0, other_food_nutrient / 3, (2 * other_food_nutrient) / 3, other_food_nutrient]
 
-        dpoints = np.array(food1data, food2data)
+        fig, ax = plt.subplots()
 
-        bar = plt.figure()
-        ax = bar.add_subplot(111)
+        index = np.arrange(2)
+        width = 1.0
 
-        space = 0.3
+        opacity = 0.5
 
-        conditions = np.unique(dpoints[:, 0])
-        categories = np.unique(dpoints[:, 1])
+        rect1 = plt.bar(index, food_one, color='b', label=self.food.name)
+        rect2 = plt.bar(index, food_two, color='r', label=other_food.food.name)
 
-        n = len(conditions)
+        plt.xlabel('Food')
+        plt.ylabel('Amount of nutrient')
+        plt.title(f'Comparison of {comparison_nutrient} between {self.food.name} and {other_food.food.name}')
+        plt.legend()
 
-        width = (1 - space) / len(conditions)
+        plt.tight_layout()
+        plt.savefig(f"{self.food.name}_{other_food.food.name}_bargraph")
 
-        print("width:", width)
-
-        for i, cond in enumerate(conditions):
-            vals = dpoints[dpoints[:, 0] == cond][:, 2].astype(np.float)
-            pos = [j - (1 - space) / 2. + i * width for j in range(1, len(categories) + 1)]
-
-            ax.bar(pos, vals, width=width)
-
-            ax.set_xticks("indeces")
-            ax.set_xticklabels(categories)
-            plt.setp(plt.xticks()[1], rotation=90)
-
-            ax.set_ylabel("Amount")
-            ax.set_xlabel("Nutrient")
-
-            ax.bar(pos, vals, width=width, label=cond, color=cm.Accent(float(i) / n))
-
-            handles, labels = ax.get_legend_handles_labels()
-            ax.legend(handles[::-1], labels[::-1])
-
-
-            bar_graph = self.food.name + "_" + other_food.food.name + "_bar_graph"
-            plt.savefig(bar_graph)
-
-        self.bar_graph = "./" + self.food.name + "_" + other_food.food.name + "_bar_graph.png"
+        self.bar_graph = f"./{self.food.name}_{other_food.food.name}_bargraph.png"
 
 
 
