@@ -2,6 +2,7 @@
 import discord
 import asyncio
 from discord.ext.commands import Bot
+from API_INFO import DISCORD_API
 from discord.ext import commands
 import platform
 
@@ -33,7 +34,7 @@ async def ping(*args):
 	await client.say(":ping_pong: Pong!")
 # After you have modified the code, feel free to delete the line above so it does not keep popping up everytime you initiate the ping commmand.
 
-client.run('NDE0MTg5NzU1MDE5MDM0NjM0.DWjwcw.UAsR3UFQS4e-7dviBeF0-gGCklQ')
+client.run(DISCORD_API)
 
 # Basic Bot was created by Saamoz
 # Please join this Discord server if you need help: https://discord.gg/FNNNgqb
