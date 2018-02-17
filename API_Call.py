@@ -7,7 +7,8 @@ API_POST = "https://trackapi.nutritionix.com/v2/natural/nutrients"
 
 class APICall:
     """
-    PUT SOMETHING HERE LATER
+    Class used to make requests to the Nutritionix API.
+    Can be extended easily.
     """
     def send_post(self, foods: str) -> Union[List[Dict], str]:
         """Returns a list of dictionaries of each food passed
