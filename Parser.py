@@ -14,8 +14,7 @@ class Parser:
     def __init__(self):
         self.nutrientKeyWords = ["calories", "fat", "saturated", "cholesterol", "sodium", "carb", "fiber", "sugar",
                                  "protein", "potassium"]
-        self.actionKeyWords = []
-        self.allMessage = []
+        self.actionKeyWords = ["pic", "compare", "sum"]
 
     def isNutrient(self, s: str):
         s = self.stripString(s)
@@ -30,9 +29,14 @@ class Parser:
     def getNutrientKeyWords(self, s: str):
         keyWords = []
         for item in self.nutrientKeyWords:
-            if item in s:
+
+            if item in s.lower():
                 keyWords.append(item)
-       # for item in self.allMessage:
-       #     if item == s:
-       #        keyWords.append(item)
+        return keyWords
+
+    def getActionKeyWords(self, s: str):
+        keyWords = []
+        for item in self.actionKeyWords:
+            if item in s.lower():
+                keyWords.append(item)
         return keyWords

@@ -31,7 +31,6 @@ async def on_ready():
 # This is a basic example of a call and response command. You tell it do "this" and it does it.
 @client.event
 async def on_message(message):
-    output = ""
     food_input = message.content
     if not state.awake:
         if message.content == "Wake up myBot":
@@ -45,9 +44,31 @@ async def on_message(message):
         return
 
     ### if codes reaches this point we are making a call to the nutrionix API
-    await client.send_message(message.channel, bot_response(message))
+    output = bot_response(message)
+    if type(output) == str:
+        await client.send_message(message.channel, "Sorry we could not find your requested food item.")
+        return
+    visuals = output["visual"]
+    texts = output["text"]
+    if len(visuals) == 0:
+        for i in range(len(texts)):
+            await client.send_message(message.channel, texts[i])
+    elif len(visuals) != len(texts):
+        await client.send_message(message.channel, visuals[0])
+    else:
+        for i in range(len(texts)):
+            await client.send_message(message.channel, texts[i])
+            await client.send_file(message.channel, visuals[i])
+        delete_image_files()
 
+def delete_image_files():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    get_dir = os.listdir(dir_path)
 
+    for item in get_dir:
+        if item.endswith(".png"):
+            os.remove(os.path.join(dir_path, item))
+#send_file(destination, fp, *, filename=None, content=None, tts=False)
 
 client.run('NDE0MTg5NzU1MDE5MDM0NjM0.DWjwcw.UAsR3UFQS4e-7dviBeF0-gGCklQ')
 
