@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import os
-from Food import *
-
+import numpy as np
 
 
 class NutritionGraphics:
@@ -17,6 +16,9 @@ class NutritionGraphics:
                                    if nutrient not in ("calories", "cholestrol",
                                                   "sodium", "carbohydrate", "fat")]
         self.relevant_nutrients.append("unsaturated fat")
+
+        self.pie_graph = ""
+        self.bar_graph = ""
 
     def create_nutrition_pie_chart(self):
         """
@@ -39,7 +41,15 @@ class NutritionGraphics:
 
         plt.title(f"{self.food.name} nutrition breakdown (grams)")
         plt.savefig(self.food.name)
-        return self.food.name
+        self.pie_graph = self.food.name + ".png"
+
+    def create_bar_graph_comparison(self, other_food, comparison_nutrient):
+        """
+        Creates a bar graph comparing two distinct foods' nutrients.
+        """
+
+        self.bar_graph = self.food.name + "_" + other_food.food.name + "_bar_graph.png"
+
 
     def delete_image_files(self):
         """Deletes images created once no longer needed."""
