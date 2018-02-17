@@ -34,10 +34,10 @@ async def on_message(message):
     output = ""
     food_input = message.content
     if not state.awake:
-        if message == "Wake up myBot":
+        if message.content == "Wake up myBot":
             state.awake = True
         return
-    elif message == "Sleep, myBot":
+    elif message.content == "Sleep, myBot":
         state.awake = False
         await client.send_message(message.channel, "Going to sleep now...")
         return

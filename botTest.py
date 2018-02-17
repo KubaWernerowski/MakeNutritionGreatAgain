@@ -1,2 +1,2 @@
 def excite(s: str):
-    return s.capitalize()
+    return s.upper()
