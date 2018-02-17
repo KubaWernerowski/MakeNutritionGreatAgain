@@ -14,9 +14,9 @@ state = var_holder()
 food_api = APICall()
 parser = Parser()
 
-def getNurtritionalInfo(user_input: list, food_items: list):
+def getNurtritionalInfo(user_input: str, food_items: list):
     food_items = food_factory(food_items)  # make list of dict of foods into list of Food objects
-    keywords = parser.nutrientKeyWords()
+    keywords = parser.getNutrientKeyWords(user_input)
 
     return naturalResponse(food_items, keywords)
 
