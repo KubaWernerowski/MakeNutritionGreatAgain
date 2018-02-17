@@ -41,14 +41,16 @@ class NutritionGraphics:
 
         plt.title(f"{self.food.name} nutrition breakdown (grams)")
         plt.savefig(self.food.name)
-        self.pie_graph = self.food.name + ".png"
+        self.pie_graph = "./" + self.food.name + ".png"
 
     def create_bar_graph_comparison(self, other_food, comparison_nutrient):
         """
         Creates a bar graph comparing two distinct foods' nutrients.
         """
 
-        self.bar_graph = self.food.name + "_" + other_food.food.name + "_bar_graph.png"
+
+        self.bar_graph = "./" + self.food.name + "_" + other_food.food.name + "_bar_graph.png"
+        
 
 
     def delete_image_files(self):
